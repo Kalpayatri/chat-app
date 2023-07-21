@@ -1,10 +1,16 @@
 import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Login from "./pages/login";
+import Home from "./pages/home";
+import Register from "./pages/register";
 
 const App=()=>{
   return(
-    <div>
-      App
-    </div>
+   <Router>
+    <Route exact path="/" component={Home}></Route>
+    <Route exact path="/login" component={Login}></Route>
+    <Route exact path="/register" component={Register}></Route>
+   </Router>
   )
 }
 export default App
