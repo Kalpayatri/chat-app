@@ -2,13 +2,31 @@ import React, { useState } from "react";
 import { Typography, Box, Button, TextField } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import { validationSchema } from "../utils/validationSchema";
+import axios from "axios";
+import {useHistory} from "react-router-dom"
 
 const Register = () => {
+  const history=useHistory()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   });
+
+  const handleSubmit=(values,{resetForm})=>{
+    axios.post('http://localhost:7000/users/register',values)
+    .then((res)=>{
+      console.log('User registered successfully')
+      resetForm()
+      history.push('/login')
+    })
+    .catch((err)=>{
+      console.log('Error registering user',err)
+    })
+
+  }
+
+
   return (
     <Box
       sx={{
@@ -23,7 +41,7 @@ const Register = () => {
       <Typography variant="h5" component="h1" gutterBottom marginBottom={4}>
         Register your account
       </Typography>
-      <Formik initialValues={formData} validationSchema={validationSchema}>
+      <Formik initialValues={formData} validationSchema={validationSchema} onSubmit={handleSubmit}>
         {({ errors, touched, resetForm }) => (
           <Form>
             <Field
