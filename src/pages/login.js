@@ -15,14 +15,14 @@ const Login = () => {
   const handleSubmit = async (values, { resetForm }) => {
     try {
       console.log(values)
-      const response = await axios.post("http://localhost:7000/users/login", values);
+      const response = await axios.post("http://localhost:8000/users/login", values);
       const data = response.data;
   
       if (response.status === 200) {
         const token = data.token;
         localStorage.setItem("token", token);
         resetForm();
-        history.push("/");
+        history.push("/ChatApp");
       } else {
         console.log("Login failed:", data.message);
       }
