@@ -14,7 +14,7 @@ const Register = () => {
   });
 
   const handleSubmit=(values,{resetForm})=>{
-    axios.post('http://localhost:7000/users/register',values)
+    axios.post('http://localhost:8000/users/register',values)
     .then((res)=>{
       console.log('User registered successfully')
       resetForm()
@@ -44,6 +44,17 @@ const Register = () => {
       <Formik initialValues={formData} validationSchema={validationSchema} onSubmit={handleSubmit}>
         {({ errors, touched, resetForm }) => (
           <Form>
+            <Field
+              as={TextField}
+              name="username"
+              label="Enter your username"
+              type="text"
+              required
+              fullWidth
+              sx={{ mb: 2 }}
+              error={errors.username && touched.username}
+              helperText={errors.username && touched.username && errors.username}
+            />
             <Field
               as={TextField}
               name="email"
